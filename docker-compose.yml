@@ -28,11 +28,11 @@ services:
             - prometheus
        volumes:
             - type: bind
-              mode: ro
+              read_only: yes
               source: ./grafana/provisioning
               target: /etc/grafana/provisioning/
             - type: bind
-              mode: ro
+              read_only: yes
               source: ./grafana/dashboards
               target: /var/lib/grafana/dashboards
 
@@ -47,7 +47,7 @@ services:
             - app1
        volumes:
             - type: bind
-              mode: ro
+              read_only: yes
               source: ./prometheus/prometheus.yml
               target: /etc//prometheus/prometheus.yml
 
