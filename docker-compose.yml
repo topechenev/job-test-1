@@ -1,0 +1,57 @@
+version: '3.3'
+services:
+
+    app1:
+       build:
+            dockerfile: ./Dockerfile-webapp
+            context: ./
+       image: 'webapp'
+       container_name: 'webapp'
+       environment: []
+       networks:
+            - test123
+       ports:
+            - '80:80'
+            - '443:443'
+
+    grafana:
+       image: 'grafana/grafana'
+       container_name: 'grafana'
+       environment:
+            - GF_SERVER_ROOT_URL=http://grafana
+            - GF_SECURITY_ADMIN_PASSWORD=secret
+       networks:
+            - test123
+       ports:
+            - '3000:3000'
+       depends_on: 
+            - prometheus
+       volumes:
+            - type: bind
+              mode: ro
+              source: ./grafana/provisioning
+              target: /etc/grafana/provisioning/
+            - type: bind
+              mode: ro
+              source: ./grafana/dashboards
+              target: /var/lib/grafana/dashboards
+
+    prometheus:
+       image: 'prom/prometheus'
+       container_name: 'prometheus'
+       networks:
+            - test123
+       ports:
+            - '9090:9090'
+       depends_on: 
+            - app1
+       volumes:
+            - type: bind
+              mode: ro
+              source: ./prometheus/prometheus.yml
+              target: /etc//prometheus/prometheus.yml
+
+volumes: {}
+
+networks:
+    test123: {}
