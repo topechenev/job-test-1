@@ -1,0 +1,55 @@
+file:
+  /var/log/nginx/access.log:
+    exists: false
+    contains: []
+  /var/log/nginx/error.log:
+    exists: false
+    contains: []
+package:
+  nginx:
+    installed: false
+port:
+  tcp:80:
+    listening: true
+    ip:
+    - 0.0.0.0
+process:
+  nginx:
+    running: false
+http:
+  http://localhost/test1:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: [test1]
+  http://localhost/metrics:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: [requests]
+  http://localhost/status:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: [enabled]
+  http://localhost/disable:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: [disabled]
+  http://localhost/enable:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: [enabled]
+  http://localhost/health:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: []
