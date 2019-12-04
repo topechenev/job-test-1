@@ -14,3 +14,7 @@
 2. prometheus - снимает метрики приложения  
 3. grafana - [http://\<your-ip:3000/] admin/secret  
     Смотреть дашборд WEB-APP
+
+Тесты:  
+Для тестирования понадобится `goss` и `dgoss`
+После сборки docker image webapp запустить `dgoss run webapp` из \<local-repo-location>.
